@@ -13,8 +13,8 @@ import java.time.LocalDate;
 @Table(name = "employees")
 public class EmployeeEntity {
 
-    @Id //used for setting the primary key here Long "id" is the primary key
-    @GeneratedValue(strategy = GenerationType.AUTO) //tell hibernate to generate auto incremented key
+    @Id //used to define primary key
+    @GeneratedValue(strategy = GenerationType.AUTO) //used to generate auto-incremented key
     private Long id;
 
     private String name;
