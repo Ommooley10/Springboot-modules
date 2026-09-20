@@ -34,7 +34,7 @@ public class EmployeeDTO {
     @EmployeeRoleValidation //CUSTOM VALIDATION USED
     private String role; //ADMIN, USER
 
-    @PastOrPresent(message = "The data of joining cannot be in future   ")
+    @PastOrPresent(message = "The data of joining cannot be in future")
     private LocalDate dateOfJoining;
 
     @AssertTrue(message = "Employee should be active")

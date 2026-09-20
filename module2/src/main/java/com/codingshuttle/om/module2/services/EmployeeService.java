@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,7 +23,9 @@ public class EmployeeService {
 
 
     public EmployeeDTO getEmployeeById(Long employeeID) {
-        EmployeeEntity employeeEntity = employeeRepository.findById(employeeID).orElse(null);
+        EmployeeEntity employeeEntity = employeeRepository
+                .findById(employeeID)
+                .orElseThrow(() ->new NoSuchElementException("Employee Not Found with id " +employeeID)); //this exception is handled by @ExeptionHandler defined in advices package
         return mapper.map(employeeEntity, EmployeeDTO.class);
     }
 
@@ -65,7 +68,7 @@ public class EmployeeService {
         boolean exists = employeeRepository.existsById(employeeID);
 
         if (!exists) {
-            return false;
+            throw new NoSuchElementException("Employee cannot be found: "+employeeID);
         }
 
         employeeRepository.deleteById(employeeID);
@@ -75,7 +78,7 @@ public class EmployeeService {
 
     public EmployeeDTO updateEmployeePartially(EmployeeDTO employeeDTO, Long employeeID) {
 
-        EmployeeEntity employeeEntity = employeeRepository.findById(employeeID).orElseThrow(() -> new RuntimeException("Employee not found"));
+        EmployeeEntity employeeEntity = employeeRepository.findById(employeeID).orElseThrow(() -> new NoSuchElementException("Employee not found with id " +employeeID));
 
         if (employeeDTO.getName() != null) {
             employeeEntity.setName(employeeDTO.getName());
@@ -87,6 +90,10 @@ public class EmployeeService {
 
         if (employeeDTO.getAge() != null) {
             employeeEntity.setAge(employeeDTO.getAge());
+        }
+
+        if(employeeDTO.getRole() != null ){
+            employeeEntity.setRole(employeeDTO.getRole());
         }
 
         if (employeeDTO.getDateOfJoining() != null) {

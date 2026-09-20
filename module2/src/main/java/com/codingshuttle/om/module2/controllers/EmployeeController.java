@@ -69,7 +69,7 @@ public class EmployeeController {
 //    }
 
     @PatchMapping(path = "/{employeeID}")
-    public ResponseEntity<EmployeeDTO> updateEmployeePartially(@RequestBody EmployeeDTO employeeDTO, @PathVariable Long employeeID) {
+    public ResponseEntity<EmployeeDTO> updateEmployeePartially(@RequestBody @Valid EmployeeDTO employeeDTO, @PathVariable Long employeeID) {
         EmployeeDTO employee = employeeService.updateEmployeePartially(employeeDTO, employeeID);
         return ResponseEntity.ok(employee);
     }
