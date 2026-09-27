@@ -1,6 +1,9 @@
 package com.codingshuttle.om.module3_JpaTutorial.repositories;
 
 import com.codingshuttle.om.module3_JpaTutorial.entities.ProductEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -16,6 +19,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
     List<ProductEntity> findByCreatedAtAfter(LocalDateTime after);
     List<ProductEntity> findByQuantityGreaterThanOrPriceLessThan(int quantity, BigDecimal price);
     List<ProductEntity> findByTitleLike(String title);
+    List<ProductEntity> findBy(Sort sort);
 
     //THE IMPLEMENTATION OF THIS METHOD IS DEFINED BY US USING JPQL
     @Query("select e from ProductEntity e where e.title =: title and e.price =: price") //THIS IS THE DESC
