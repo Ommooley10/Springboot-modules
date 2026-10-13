@@ -23,7 +23,7 @@ class Module4ApplicationTests {
 
 	@Test
 	public void getEmployeeByIDTest(){
-		EmployeeDTO employeeDTO = employeeClient.getEmployeeByID(1L);
+		EmployeeDTO employeeDTO = employeeClient.getEmployeeByID(100L);
 		System.out.println(employeeDTO);
 	}
 
